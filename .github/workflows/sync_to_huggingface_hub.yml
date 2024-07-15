@@ -14,7 +14,14 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
-      - name: Push to hub
+      - name: Configure Git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+      - name: Push only modified files to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push --force https://bguratti:$HF_TOKEN@huggingface.co/spaces/bguratti/xray-analyzer main
+        run: |
+          git add -u  # Add only modified and deleted files
+          git commit -m "Update modified files"
+          git push https://bguratti:$HF_TOKEN@huggingface.co/spaces/bguratti/xray-analyzer main
