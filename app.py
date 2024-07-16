@@ -55,7 +55,7 @@ if uploaded_file is not None:
     highest_prob_label = class_labels[predicted_class]
     
     # Display diagnostic message
-    st.write(f"The diagnostic is **{highest_prob_label}** with **{highest_prob*100:.2f}%** probability.**")
+    st.write(f"The diagnostic is **{highest_prob_label}** with **{highest_prob*100:.2f}%** probability.")
     
     # Display the uploaded image
     st.image(display_image, caption='Uploaded X-ray image.', use_column_width=True)
