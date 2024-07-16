@@ -3,18 +3,26 @@ on:
   push:
     branches: [main]
 
-  # to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
 jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
         with:
-          fetch-depth: 0
-          lfs: true
-      - name: Push to hub
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push https://bguratti:$HF_TOKEN@huggingface.co/spaces/bguratti/xray-analyzer main
+          fetch-depth: 0  # Fetch all history for proper comparisons
+          lfs: true  # Enable Git LFS if needed
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+      - name: Pull remote changes
+        run: git pull https://bguratti:$HF_TOKEN@huggingface.co/spaces/bguratti/xray-analyzer main --allow-unrelated-histories
+
+      - name: Push changes to hub
+        run: |
+          git add -A  # Stage all changes, including new files
+          git commit -m "Sync changes to Hugging Face Hub"
+          git push https://bguratti:$HF_TOKEN@huggingface.co/spaces/bguratti/xray-analyzer main
