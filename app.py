@@ -59,3 +59,5 @@ if uploaded_file is not None:
     
     # Display the uploaded image
     st.image(display_image, caption='Uploaded X-ray image.', use_column_width=True)
+
+
