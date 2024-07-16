@@ -3,9 +3,6 @@ on:
   push:
     branches: [main]
 
-  # to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
 jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
@@ -14,11 +11,14 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
+
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push --force https://bguratti:$HF_TOKEN@huggingface.co/spaces/bguratti/xray-analyzer main
-
-     # Revert the changes made to .gitignore after the push (if needed)
-      - name: Revert changes to .gitignore
-        run: git checkout HEAD^ .gitignore
+        run: |
+          git config user.name "Bruno Guratti"
+          git config user.email "brunoguratti@gmail.com"
+          git add .
+          git reset $(git ls-files -i --exclude-standard --cached)
+          git commit -m "Update tracked files"
+          git push --force https://bguratti:$HF_TOKEN@huggingface.co/spaces/bguratti/xray-analyzer main
