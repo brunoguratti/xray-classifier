@@ -28,11 +28,11 @@ def preprocess_image(image, target_size=(224, 224)):
     return image
 
 # Define the Streamlit app
-st.title("COVID-19 X-ray Classification")
+st.title("COVID-19 X-ray Analyzer")
 st.write("Upload an X-ray image and get the classification result (COVID-19, Non-COVID, Normal).")
 
 # File uploader
-uploaded_file = st.file_uploader("Choose an X-ray image...", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     # Read the image
@@ -55,7 +55,7 @@ if uploaded_file is not None:
     highest_prob_label = class_labels[predicted_class]
     
     # Display diagnostic message
-    st.write(f"**The diagnostic is {highest_prob_label} with {highest_prob*100:.2f}% probability.**")
+    st.write(f"The diagnostic is **{highest_prob_label}** with **{highest_prob*100:.2f}%** probability.**")
     
     # Display the uploaded image
     st.image(display_image, caption='Uploaded X-ray image.', use_column_width=True)
