@@ -28,7 +28,7 @@ def preprocess_image(image, target_size=(224, 224)):
     return image
 
 # Define the Streamlit app
-st.title("👨‍⚕ COVID-19 X-ray Analyzer")
+st.title("😷 COVID-19 X-ray Analyzer")
 st.write("Upload an X-ray image and get the classification result (COVID-19, Non-COVID, Normal).")
 
 # File uploader
