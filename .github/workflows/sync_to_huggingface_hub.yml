@@ -17,4 +17,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push --force https://bguratti:$HF_TOKEN@huggingface.co/spaces/bguratti/xray-analyzer main
+        run: git push --force https://bguratti:$HF_TOKEN@huggingface.co/spaces/bguratti/face-genreator main
